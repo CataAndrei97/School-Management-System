@@ -1,4 +1,9 @@
-# 🎓 School Management System
+# 🎓 School Management System (Demo Project)
+
+⚠️ **Disclaimer:**  
+- This project is created **for educational and demonstration purposes only**.  
+- It is **not intended for production use** or for managing real-world data.  
+- The goal is to showcase full-stack development with React, Node.js, and Docker.
 
 Full-stack web app built with **React (Vite)** and **Node.js (Express)**, fully containerized with Docker.
 
