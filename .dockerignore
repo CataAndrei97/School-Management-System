@@ -1,0 +1,37 @@
+# Node dependencies
+node_modules
+**/node_modules
+
+# Build artifacts
+dist
+**/dist
+.vite
+**/.vite
+
+# Logs
+*.log
+logs
+**/logs
+
+# Environment files
+.env
+**/.env
+
+# Docker config files (avoid recursive copies)
+Dockerfile
+**/Dockerfile
+docker-compose.yml
+
+# Git & IDE
+.git
+.gitignore
+.idea
+.vscode
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+tmp
+temp

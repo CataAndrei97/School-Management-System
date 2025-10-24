@@ -7,4 +7,5 @@ Dockerfile
 .idea
 .vscode
 .env
+.vite
 dist
