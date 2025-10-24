@@ -140,3 +140,6 @@ vite.config.ts.timestamp-*
 
 # JetBrains IDEs
 .idea/
+
+# Vite cache
+Frontend.vite/
