@@ -4,6 +4,7 @@
 - This project is created **for educational and demonstration purposes only**.  
 - It is **not intended for production use** or for managing real-world data.  
 - The goal is to showcase full-stack development with React, Node.js, and Docker.
+- Note: JWT secret is for demo purposes only — do not reuse in production.
 
 Full-stack web app built with **React (Vite)** and **Node.js (Express)**, fully containerized with Docker.
 
