@@ -1,20 +1,29 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { useAuth } from "./context/AuthContext";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Register from "./pages/Register.jsx";
-
-function PrivateRoute({ children }) {
-    const { token } = useAuth();
-    return token ? children : <Navigate to="/login" />;
-}
+import {PrivateRoute, PublicRoute} from "./routes.jsx";
 
 export default function App() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/register" element={<Register />} />
-                <Route path="/login" element={<Login />} />
+                <Route
+                    path="/login"
+                    element={
+                        <PublicRoute>
+                            <Login />
+                        </PublicRoute>
+                    }
+                />
+                <Route
+                    path="/register"
+                    element={
+                        <PublicRoute>
+                            <Register />
+                        </PublicRoute>
+                    }
+                />
                 <Route
                     path="/dashboard"
                     element={
