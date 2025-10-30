@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Register from "./pages/Register.jsx";
@@ -8,6 +8,7 @@ export default function App() {
     return (
         <BrowserRouter>
             <Routes>
+                <Route path="/" element={<Navigate to="/login" replace />} />
                 <Route
                     path="/login"
                     element={
@@ -32,6 +33,7 @@ export default function App() {
                         </PrivateRoute>
                     }
                 />
+                <Route path="*" element={<Navigate to="/login" replace />} />
             </Routes>
         </BrowserRouter>
     );
