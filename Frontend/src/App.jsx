@@ -1,22 +1,40 @@
-import { useState, useEffect } from "react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
+import Register from "./pages/Register.jsx";
+import {PrivateRoute, PublicRoute} from "./routes.jsx";
 
-function App() {
-    const [message, setMessage] = useState("Loading...");
-
-    useEffect(() => {
-        fetch("http://localhost:4000")
-            .then((res) => res.json())
-            .then((data) => setMessage(data.message))
-            .catch(() => setMessage("⚠️ Backend not reachable"));
-    }, []);
-
+export default function App() {
     return (
-        <div style={{ fontFamily: "sans-serif", padding: "2rem" }}>
-            <h1>🎓 School Management Frontend</h1>
-            <h2>{message}</h2>
-            <p>Edit <code>src/App.jsx</code> and save — the browser should auto-refresh 🔁</p>
-        </div>
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<Navigate to="/login" replace />} />
+                <Route
+                    path="/login"
+                    element={
+                        <PublicRoute>
+                            <Login />
+                        </PublicRoute>
+                    }
+                />
+                <Route
+                    path="/register"
+                    element={
+                        <PublicRoute>
+                            <Register />
+                        </PublicRoute>
+                    }
+                />
+                <Route
+                    path="/dashboard"
+                    element={
+                        <PrivateRoute>
+                            <Dashboard />
+                        </PrivateRoute>
+                    }
+                />
+                <Route path="*" element={<Navigate to="/login" replace />} />
+            </Routes>
+        </BrowserRouter>
     );
 }
-
-export default App;
