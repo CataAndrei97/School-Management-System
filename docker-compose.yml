@@ -33,7 +33,7 @@ services:
       - JWT_SECRET=7xhG8EumqQXv4S6LeCGARFGZcVENWSVm9JnMdZNudgKBnjTLeLtZUECnieBnzAum
       - DATABASE_URL=postgresql://postgres:postgres@postgres-db:5432/school-management-app
     command: >
-      sh -c "npx prisma migrate deploy && npm run dev:debug"
+      sh -c "npx prisma migrate deploy && node prisma/runSeeds.js && npm run dev:debug"
 
   frontend:
     build: ./frontend
