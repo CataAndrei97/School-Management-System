@@ -1,12 +1,29 @@
 version: "3.9"
 
 services:
+  postgres:
+    image: postgres:16
+    container_name: postgres-db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: school-management-app
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
   backend:
     build: ./backend
     container_name: school_backend
+    restart: always
+    depends_on:
+      - postgres
     ports:
       - "4000:4000"
       - "9229:9229"
+      - "5555:5555"
     volumes:
       - ./backend:/app
       - /app/node_modules
@@ -14,7 +31,9 @@ services:
       - PORT=4000
       - CHOKIDAR_USEPOLLING=true
       - JWT_SECRET=7xhG8EumqQXv4S6LeCGARFGZcVENWSVm9JnMdZNudgKBnjTLeLtZUECnieBnzAum
-    command: npm run dev:debug
+      - DATABASE_URL=postgresql://postgres:postgres@postgres-db:5432/school-management-app
+    command: >
+      sh -c "npx prisma migrate deploy && npm run dev:debug"
 
   frontend:
     build: ./frontend
@@ -31,3 +50,6 @@ services:
     command: npm run dev
     depends_on:
       - backend
+
+volumes:
+  postgres_data:

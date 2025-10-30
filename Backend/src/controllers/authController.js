@@ -1,7 +1,8 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
-import { users } from "../models/userModel.js";
+import { PrismaClient } from "@prisma/client";
 
+const prisma = new PrismaClient();
 const JWT_SECRET = process.env.JWT_SECRET || "demo_secret"; // for demo
 
 export const register = async (req, res) => {
@@ -10,27 +11,34 @@ export const register = async (req, res) => {
         return res.status(400).json({ message: "Email, Username and Password required" });
     }
 
-    const existingUser = users.find(u => u.email === email);
+    const existingUser = await prisma.user.findUnique({ where: { email } });
     if (existingUser) {
         return res.status(400).json({ message: "User already exists" });
     }
 
     const hashed = await bcrypt.hash(password, 10);
-    const newUser = { id: users.length + 1, email, username, password: hashed, role: "student" };
-    users.push(newUser);
+
+    const role = await prisma.role.findUnique({ where: { name: "STUDENT" } });
+    const newUser = await prisma.user.create({
+        data: { email, username, password: hashed, roleId: role.id },
+        include: { role: true },
+    });
 
     const token = jwt.sign(
-        { id: newUser.id, email: newUser.email, username: newUser.username, role: newUser.role },
+        { id: newUser.id, email: newUser.email, username: newUser.username, role: newUser.role.name },
         JWT_SECRET,
         { expiresIn: "1h" }
     );
 
-    res.json({ token, user: { email: newUser.email, username: newUser.username, role: newUser.role } });
+    res.json({ token, user: { email: newUser.email, username: newUser.username, role: newUser.role.name } });
 };
 
 export const login = async (req, res) => {
     const { email, password } = req.body;
-    const user = users.find(u => u.email === email);
+    const user = await prisma.user.findUnique({
+        where: { email },
+        include: { role: true },
+    });
     if (!user) {
         return res.status(401).json({message: "Invalid credentials"});
     }
@@ -41,12 +49,12 @@ export const login = async (req, res) => {
     }
 
     const token = jwt.sign(
-        { id: user.id, email: user.email, username: user.username, role: user.role },
+        { id: user.id, email: user.email, username: user.username, role: user.role.name },
         JWT_SECRET,
         { expiresIn: "1h" }
     );
 
-    res.json({ token, user: { email: user.email, username: user.username, role: user.role } });
+    res.json({ token, user: { email: user.email, username: user.username, role: user.role.name } });
 };
 
 export const verify = (req, res) => {

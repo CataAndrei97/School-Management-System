@@ -6,13 +6,20 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
-    "dev:debug": "nodemon --inspect=0.0.0.0:9229 src/index.js"
+    "dev:debug": "nodemon --inspect=0.0.0.0:9229 src/index.js",
+    "prisma:generate": "npx prisma generate",
+    "prisma:migrate": "npx prisma migrate deploy",
+    "prisma:seed": "node prisma/runSeeds.js",
+    "prisma:db:init": "npm run prisma:migrate && npm run prisma:seed",
+    "db:init": "npm run prisma:db:init"
   },
   "dependencies": {
     "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
     "express": "^4.21.1",
-    "jsonwebtoken": "^9.0.2"
+    "jsonwebtoken": "^9.0.2",
+    "prisma": "^5.7.1",
+    "@prisma/client": "^5.7.1"
   },
   "devDependencies": {
     "nodemon": "^3.1.0"
