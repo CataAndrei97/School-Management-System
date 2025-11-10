@@ -1,15 +1,17 @@
 import { useAuth } from "../context/AuthContext";
+import DashboardLayout from "../components/DashboardLayout.jsx";
+import DashboardAdmin from "../components/DashboardAdmin.jsx";
+import DashboardTeacher from "../components/DashboardTeacher.jsx";
+import DashboardStudent from "../components/DashboardStudent.jsx";
 
 export default function Dashboard() {
-    const { user, logout } = useAuth();
+    const { user } = useAuth();
 
     return (
-        <div className="p-6">
-            <h1 className="text-xl font-semibold">Welcome, {user?.username}!</h1>
-            <p className="mb-4">Role: {user?.role}</p>
-            <button className="bg-red-500 text-white rounded p-2" onClick={logout}>
-                Logout
-            </button>
-        </div>
+        <DashboardLayout>
+            {user?.role === "ADMIN" && <DashboardAdmin />}
+            {user?.role === "TEACHER" && <DashboardTeacher />}
+            {user?.role === "STUDENT" && <DashboardStudent />}
+        </DashboardLayout>
     );
 }

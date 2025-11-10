@@ -2,9 +2,9 @@ import {useAuth} from "./context/AuthContext.jsx";
 import { Navigate } from "react-router-dom";
 
 export function PrivateRoute({ children }) {
-    const { token } = useAuth();
+    const { user, token } = useAuth();
 
-    return token ? children : <Navigate to="/login" replace />;
+    return token && user ? children : <Navigate to="/login" replace />;
 }
 
 export function PublicRoute({ children }) {
