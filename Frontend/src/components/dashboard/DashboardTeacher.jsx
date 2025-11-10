@@ -3,7 +3,7 @@ import { Grid, Card, CardContent, Typography } from "@mui/material";
 export default function DashboardTeacher() {
     return (
         <Grid container spacing={2}>
-            <Grid item xs={12} md={6}>
+            <Grid size={{ xs: 12, md: 6 }}>
                 <Card>
                     <CardContent>
                         <Typography variant="h6">Managed Classes</Typography>
@@ -11,7 +11,7 @@ export default function DashboardTeacher() {
                     </CardContent>
                 </Card>
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid size={{ xs: 12, md: 6 }}>
                 <Card>
                     <CardContent>
                         <Typography variant="h6">Subjects Taught</Typography>

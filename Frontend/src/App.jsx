@@ -3,6 +3,7 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Register from "./pages/Register.jsx";
 import {PrivateRoute, PublicRoute} from "./routes.jsx";
+import Users from "./components/Users.jsx";
 
 export default function App() {
     return (
@@ -30,6 +31,14 @@ export default function App() {
                     element={
                         <PrivateRoute>
                             <Dashboard />
+                        </PrivateRoute>
+                    }
+                />
+                <Route
+                    path="/users"
+                    element={
+                        <PrivateRoute>
+                            <Users />
                         </PrivateRoute>
                     }
                 />
