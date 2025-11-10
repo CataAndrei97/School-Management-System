@@ -3,7 +3,7 @@ import bcrypt from "bcryptjs";
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
-const JWT_SECRET = process.env.JWT_SECRET || "demo_secret"; // for demo
+const JWT_SECRET = process.env.JWT_SECRET || "demo_secret";
 
 export const register = async (req, res) => {
     const { email, username, password } = req.body;
@@ -18,7 +18,7 @@ export const register = async (req, res) => {
 
     const hashed = await bcrypt.hash(password, 10);
 
-    const role = await prisma.role.findUnique({ where: { name: "STUDENT" } });
+    const role = await prisma.role.findUnique({ where: { name: "REGULAR" } });
     const newUser = await prisma.user.create({
         data: { email, username, password: hashed, roleId: role.id },
         include: { role: true },

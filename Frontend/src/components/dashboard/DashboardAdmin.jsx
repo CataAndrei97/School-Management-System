@@ -3,7 +3,7 @@ import { Grid, Card, CardContent, Typography } from "@mui/material";
 export default function DashboardAdmin() {
     return (
         <Grid container spacing={2}>
-            <Grid item xs={12} md={4}>
+            <Grid size={{ xs: 12, md: 4 }}>
                 <Card>
                     <CardContent>
                         <Typography variant="h6">Total Students</Typography>
@@ -11,7 +11,7 @@ export default function DashboardAdmin() {
                     </CardContent>
                 </Card>
             </Grid>
-            <Grid item xs={12} md={4}>
+            <Grid size={{ xs: 12, md: 4 }}>
                 <Card>
                     <CardContent>
                         <Typography variant="h6">Teachers</Typography>
@@ -19,7 +19,7 @@ export default function DashboardAdmin() {
                     </CardContent>
                 </Card>
             </Grid>
-            <Grid item xs={12} md={4}>
+            <Grid size={{ xs: 12, md: 4 }}>
                 <Card>
                     <CardContent>
                         <Typography variant="h6">Classes</Typography>

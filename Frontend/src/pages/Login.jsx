@@ -87,7 +87,7 @@ export default function Login() {
         >
             <Container maxWidth="md">
                 <Grid container spacing={4} alignItems="center" justifyContent="center">
-                    <Grid item xs={12} md={6}>
+                    <Grid size={{ xs: 12, md: 6 }}>
                         <Paper
                             elevation={8}
                             sx={{
